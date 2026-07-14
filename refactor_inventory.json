@@ -1,0 +1,3423 @@
+{
+  "grok_register_ttk.py": {
+    "lines": 3835,
+    "definitions": [
+      {
+        "kind": "ClassDef",
+        "name": "RegistrationCancelled",
+        "start": 108,
+        "end": 109,
+        "free_names": [
+          "Exception"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "AccountRetryNeeded",
+        "start": 112,
+        "end": 113,
+        "free_names": [
+          "Exception"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "ConfigError",
+        "start": 116,
+        "end": 117,
+        "free_names": [
+          "RuntimeError"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "RemoteTokenCompatibilityError",
+        "start": 120,
+        "end": 121,
+        "free_names": [
+          "RuntimeError"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "RemoteTokenRequestError",
+        "start": 124,
+        "end": 125,
+        "free_names": [
+          "RuntimeError"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "log_exception",
+        "start": 128,
+        "end": 134,
+        "free_names": [
+          "context",
+          "exc",
+          "log_callback",
+          "print",
+          "sys"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_require_bool",
+        "start": 137,
+        "end": 141,
+        "free_names": [
+          "ConfigError",
+          "bool",
+          "cfg",
+          "key",
+          "type"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_require_int",
+        "start": 144,
+        "end": 150,
+        "free_names": [
+          "ConfigError",
+          "cfg",
+          "int",
+          "key",
+          "maximum",
+          "minimum",
+          "type"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_require_string",
+        "start": 153,
+        "end": 162,
+        "free_names": [
+          "ConfigError",
+          "cfg",
+          "isinstance",
+          "key",
+          "os",
+          "path",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "validate_config_structure",
+        "start": 165,
+        "end": 223,
+        "free_names": [
+          "ConfigError",
+          "DEFAULT_CONFIG",
+          "_require_bool",
+          "_require_int",
+          "_require_string",
+          "dict",
+          "isinstance",
+          "os",
+          "raw",
+          "sorted",
+          "str",
+          "tuple",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "validate_run_requirements",
+        "start": 226,
+        "end": 249,
+        "free_names": [
+          "ConfigError",
+          "validate_config_structure"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "validate_config",
+        "start": 252,
+        "end": 254,
+        "free_names": [
+          "raw",
+          "validate_run_requirements"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "load_config",
+        "start": 257,
+        "end": 270,
+        "free_names": [
+          "CONFIG_FILE",
+          "ConfigError",
+          "DEFAULT_CONFIG",
+          "Exception",
+          "exc",
+          "json",
+          "open",
+          "os",
+          "validate_config_structure"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "save_config",
+        "start": 273,
+        "end": 310,
+        "free_names": [
+          "CONFIG_FILE",
+          "ConfigError",
+          "Exception",
+          "exc",
+          "json",
+          "os",
+          "tempfile",
+          "validate_config_structure"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "ensure_stable_python_runtime",
+        "start": 313,
+        "end": 335,
+        "free_names": [
+          "__file__",
+          "os",
+          "print",
+          "sys"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "warn_runtime_compatibility",
+        "start": 338,
+        "end": 342,
+        "free_names": [
+          "print",
+          "sys"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_configured_proxy",
+        "start": 356,
+        "end": 357,
+        "free_names": [
+          "config",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_proxies",
+        "start": 360,
+        "end": 364,
+        "free_names": [
+          "get_configured_proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_parse_proxy_url",
+        "start": 367,
+        "end": 376,
+        "free_names": [
+          "Exception",
+          "proxy",
+          "str",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_safe_proxy_port",
+        "start": 379,
+        "end": 383,
+        "free_names": [
+          "Exception",
+          "parsed"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_proxy_has_auth",
+        "start": 386,
+        "end": 388,
+        "free_names": [
+          "_parse_proxy_url",
+          "bool",
+          "proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_strip_proxy_auth",
+        "start": 391,
+        "end": 404,
+        "free_names": [
+          "_parse_proxy_url",
+          "_safe_proxy_port",
+          "proxy",
+          "str",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_proxy_endpoint_terms",
+        "start": 407,
+        "end": 416,
+        "free_names": [
+          "_parse_proxy_url",
+          "_safe_proxy_port",
+          "get_configured_proxy",
+          "proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "is_proxy_connection_error",
+        "start": 419,
+        "end": 440,
+        "free_names": [
+          "_proxy_endpoint_terms",
+          "any",
+          "exc",
+          "get_configured_proxy",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "page_has_proxy_error",
+        "start": 443,
+        "end": 462,
+        "free_names": [
+          "Exception",
+          "any",
+          "getattr",
+          "page_obj",
+          "str"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "_ReusableThreadingTCPServer",
+        "start": 465,
+        "end": 467,
+        "free_names": [
+          "socketserver"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_proxy_recv_until_headers",
+        "start": 470,
+        "end": 478,
+        "free_names": [
+          "len",
+          "limit",
+          "sock",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_proxy_relay",
+        "start": 481,
+        "end": 494,
+        "free_names": [
+          "left",
+          "right",
+          "select",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "_LocalAuthProxyBridgeHandler",
+        "start": 497,
+        "end": 531,
+        "free_names": [
+          "Exception",
+          "_proxy_recv_until_headers",
+          "_proxy_relay",
+          "self",
+          "socketserver"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "LocalAuthProxyBridge",
+        "start": 534,
+        "end": 589,
+        "free_names": [
+          "Exception",
+          "ValueError",
+          "_LocalAuthProxyBridgeHandler",
+          "_ReusableThreadingTCPServer",
+          "_parse_proxy_url",
+          "_safe_proxy_port",
+          "base64",
+          "data",
+          "proxy_url",
+          "self",
+          "socket",
+          "ssl",
+          "threading",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "stop_browser_proxy_bridge",
+        "start": 592,
+        "end": 599,
+        "free_names": [
+          "Exception"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "prepare_browser_proxy",
+        "start": 602,
+        "end": 619,
+        "free_names": [
+          "LocalAuthProxyBridge",
+          "_parse_proxy_url",
+          "_proxy_has_auth",
+          "_strip_proxy_auth",
+          "get_configured_proxy",
+          "log_callback",
+          "use_proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_duckmail_api_key",
+        "start": 622,
+        "end": 623,
+        "free_names": [
+          "config"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudflare_api_base",
+        "start": 626,
+        "end": 627,
+        "free_names": [
+          "config",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudflare_api_key",
+        "start": 630,
+        "end": 631,
+        "free_names": [
+          "config"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudflare_auth_mode",
+        "start": 634,
+        "end": 635,
+        "free_names": [
+          "config",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudflare_path",
+        "start": 638,
+        "end": 642,
+        "free_names": [
+          "config",
+          "default_path",
+          "key",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_build_headers",
+        "start": 645,
+        "end": 656,
+        "free_names": [
+          "content_type",
+          "get_cloudflare_api_key",
+          "get_cloudflare_auth_mode"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_apply_auth_params",
+        "start": 659,
+        "end": 665,
+        "free_names": [
+          "dict",
+          "get_cloudflare_api_key",
+          "get_cloudflare_auth_mode",
+          "params"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_next_default_domain",
+        "start": 668,
+        "end": 676,
+        "free_names": [
+          "config",
+          "len",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_is_admin_create_path",
+        "start": 679,
+        "end": 681,
+        "free_names": [
+          "path",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_pick_list_payload",
+        "start": 684,
+        "end": 700,
+        "free_names": [
+          "data",
+          "dict",
+          "isinstance",
+          "list"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_create_temp_address",
+        "start": 703,
+        "end": 729,
+        "free_names": [
+          "Exception",
+          "api_base",
+          "cloudflare_build_headers",
+          "cloudflare_is_admin_create_path",
+          "cloudflare_next_default_domain",
+          "generate_username",
+          "get_cloudflare_path",
+          "http_post"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudmail_api_base",
+        "start": 732,
+        "end": 733,
+        "free_names": [
+          "config",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudmail_public_token",
+        "start": 736,
+        "end": 737,
+        "free_names": [
+          "config",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_cloudmail_path",
+        "start": 740,
+        "end": 745,
+        "free_names": [
+          "config",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudmail_next_domain",
+        "start": 748,
+        "end": 760,
+        "free_names": [
+          "config",
+          "len",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudmail_get_email_and_token",
+        "start": 763,
+        "end": 774,
+        "free_names": [
+          "Exception",
+          "cloudmail_next_domain",
+          "generate_username",
+          "get_cloudmail_api_base",
+          "get_cloudmail_public_token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudmail_get_messages",
+        "start": 777,
+        "end": 816,
+        "free_names": [
+          "Exception",
+          "_pick_list_payload",
+          "address",
+          "dict",
+          "get_cloudmail_api_base",
+          "get_cloudmail_path",
+          "get_cloudmail_public_token",
+          "http_post",
+          "isinstance",
+          "list"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_user_agent",
+        "start": 819,
+        "end": 823,
+        "free_names": [
+          "config"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "resolve_grok2api_local_token_file",
+        "start": 826,
+        "end": 830,
+        "free_names": [
+          "__file__",
+          "config",
+          "os",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_normalize_sso_token",
+        "start": 833,
+        "end": 837,
+        "free_names": [
+          "raw_token",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "add_token_to_grok2api_local_pool",
+        "start": 840,
+        "end": 929,
+        "free_names": [
+          "Exception",
+          "FileLock",
+          "RuntimeError",
+          "_normalize_sso_token",
+          "config",
+          "dict",
+          "email",
+          "exc",
+          "int",
+          "isinstance",
+          "json",
+          "list",
+          "log_callback",
+          "open",
+          "os",
+          "raw_token",
+          "resolve_grok2api_local_token_file",
+          "set",
+          "str",
+          "tempfile",
+          "time"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_grok2api_remote_api_bases",
+        "start": 932,
+        "end": 958,
+        "free_names": [
+          "base",
+          "set",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "add_token_to_grok2api_remote_pool",
+        "start": 961,
+        "end": 1050,
+        "free_names": [
+          "Exception",
+          "RemoteTokenCompatibilityError",
+          "RemoteTokenRequestError",
+          "_normalize_sso_token",
+          "bool",
+          "config",
+          "dict",
+          "email",
+          "exc",
+          "get_grok2api_remote_api_bases",
+          "getattr",
+          "http_get",
+          "http_post",
+          "int",
+          "isinstance",
+          "list",
+          "log_callback",
+          "raw_token",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "add_token_to_grok2api_pools",
+        "start": 1053,
+        "end": 1070,
+        "free_names": [
+          "Exception",
+          "add_token_to_grok2api_local_pool",
+          "add_token_to_grok2api_remote_pool",
+          "bool",
+          "config",
+          "email",
+          "exc",
+          "log_callback",
+          "log_exception",
+          "raw_token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "apply_browser_proxy_option",
+        "start": 1073,
+        "end": 1087,
+        "free_names": [
+          "AttributeError",
+          "Exception",
+          "TypeError",
+          "hasattr",
+          "options",
+          "proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "create_browser_options",
+        "start": 1090,
+        "end": 1097,
+        "free_names": [
+          "ChromiumOptions",
+          "EXTENSION_PATH",
+          "apply_browser_proxy_option",
+          "browser_proxy",
+          "os"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_build_request_kwargs",
+        "start": 1100,
+        "end": 1108,
+        "free_names": [
+          "dict",
+          "get_proxies",
+          "kwargs"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "http_get",
+        "start": 1111,
+        "end": 1120,
+        "free_names": [
+          "Exception",
+          "_build_request_kwargs",
+          "dict",
+          "exc",
+          "is_proxy_connection_error",
+          "kwargs",
+          "requests",
+          "url"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "http_post",
+        "start": 1123,
+        "end": 1132,
+        "free_names": [
+          "Exception",
+          "_build_request_kwargs",
+          "dict",
+          "exc",
+          "is_proxy_connection_error",
+          "kwargs",
+          "requests",
+          "url"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "raise_if_cancelled",
+        "start": 1135,
+        "end": 1137,
+        "free_names": [
+          "RegistrationCancelled",
+          "cancel_callback"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "sleep_with_cancel",
+        "start": 1140,
+        "end": 1147,
+        "free_names": [
+          "cancel_callback",
+          "max",
+          "min",
+          "raise_if_cancelled",
+          "seconds",
+          "time"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_domains",
+        "start": 1150,
+        "end": 1157,
+        "free_names": [
+          "DUCKMAIL_API_BASE",
+          "api_key",
+          "get_duckmail_api_key",
+          "http_get"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "create_account",
+        "start": 1160,
+        "end": 1168,
+        "free_names": [
+          "DUCKMAIL_API_BASE",
+          "address",
+          "api_key",
+          "expires_in",
+          "get_duckmail_api_key",
+          "http_post",
+          "password"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_token",
+        "start": 1171,
+        "end": 1175,
+        "free_names": [
+          "DUCKMAIL_API_BASE",
+          "address",
+          "http_post",
+          "password"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_messages",
+        "start": 1178,
+        "end": 1182,
+        "free_names": [
+          "DUCKMAIL_API_BASE",
+          "http_get",
+          "token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_message_detail",
+        "start": 1185,
+        "end": 1189,
+        "free_names": [
+          "DUCKMAIL_API_BASE",
+          "http_get",
+          "message_id",
+          "token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_get_domains",
+        "start": 1192,
+        "end": 1202,
+        "free_names": [
+          "_pick_list_payload",
+          "api_base",
+          "api_key",
+          "cloudflare_apply_auth_params",
+          "cloudflare_build_headers",
+          "get_cloudflare_path",
+          "http_get"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_create_account",
+        "start": 1205,
+        "end": 1216,
+        "free_names": [
+          "address",
+          "api_base",
+          "api_key",
+          "cloudflare_apply_auth_params",
+          "cloudflare_build_headers",
+          "expires_in",
+          "get_cloudflare_path",
+          "http_post",
+          "password"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_get_token",
+        "start": 1219,
+        "end": 1239,
+        "free_names": [
+          "address",
+          "api_base",
+          "api_key",
+          "cloudflare_apply_auth_params",
+          "cloudflare_build_headers",
+          "dict",
+          "get_cloudflare_path",
+          "http_post",
+          "isinstance",
+          "password"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_get_messages",
+        "start": 1242,
+        "end": 1253,
+        "free_names": [
+          "Exception",
+          "_pick_list_payload",
+          "api_base",
+          "cloudflare_apply_auth_params",
+          "get_cloudflare_path",
+          "http_get",
+          "token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_get_message_detail",
+        "start": 1256,
+        "end": 1278,
+        "free_names": [
+          "Exception",
+          "api_base",
+          "cloudflare_apply_auth_params",
+          "dict",
+          "exc",
+          "get_cloudflare_path",
+          "http_get",
+          "isinstance",
+          "message_id",
+          "token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_yyds_api_key",
+        "start": 1284,
+        "end": 1285,
+        "free_names": [
+          "config"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_yyds_jwt",
+        "start": 1288,
+        "end": 1289,
+        "free_names": [
+          "config"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_get_domains",
+        "start": 1292,
+        "end": 1303,
+        "free_names": [
+          "YYDS_API_BASE",
+          "api_key",
+          "get_yyds_api_key",
+          "get_yyds_jwt",
+          "http_get",
+          "jwt"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_create_account",
+        "start": 1306,
+        "end": 1326,
+        "free_names": [
+          "Exception",
+          "YYDS_API_BASE",
+          "address",
+          "api_key",
+          "domain",
+          "get_yyds_api_key",
+          "get_yyds_jwt",
+          "http_post",
+          "jwt"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_get_token",
+        "start": 1329,
+        "end": 1344,
+        "free_names": [
+          "Exception",
+          "YYDS_API_BASE",
+          "address",
+          "api_key",
+          "get_yyds_api_key",
+          "get_yyds_jwt",
+          "http_post",
+          "jwt"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_get_messages",
+        "start": 1347,
+        "end": 1364,
+        "free_names": [
+          "YYDS_API_BASE",
+          "address",
+          "api_key",
+          "get_yyds_api_key",
+          "get_yyds_jwt",
+          "http_get",
+          "jwt",
+          "token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_get_message_detail",
+        "start": 1367,
+        "end": 1380,
+        "free_names": [
+          "Exception",
+          "YYDS_API_BASE",
+          "api_key",
+          "get_yyds_api_key",
+          "get_yyds_jwt",
+          "http_get",
+          "jwt",
+          "message_id",
+          "token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_generate_username",
+        "start": 1383,
+        "end": 1385,
+        "free_names": [
+          "length",
+          "range",
+          "secrets",
+          "string"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_pick_domain",
+        "start": 1388,
+        "end": 1401,
+        "free_names": [
+          "Exception",
+          "api_key",
+          "jwt",
+          "yyds_get_domains"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_get_email_and_token",
+        "start": 1404,
+        "end": 1421,
+        "free_names": [
+          "Exception",
+          "api_key",
+          "get_yyds_api_key",
+          "get_yyds_jwt",
+          "jwt",
+          "print",
+          "yyds_create_account",
+          "yyds_generate_username",
+          "yyds_get_token",
+          "yyds_pick_domain"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "yyds_get_oai_code",
+        "start": 1424,
+        "end": 1475,
+        "free_names": [
+          "Exception",
+          "address",
+          "cancel_callback",
+          "exc",
+          "extract_verification_code",
+          "jwt",
+          "log_callback",
+          "poll_interval",
+          "raise_if_cancelled",
+          "re",
+          "set",
+          "sleep_with_cancel",
+          "time",
+          "timeout",
+          "token",
+          "yyds_get_message_detail",
+          "yyds_get_messages"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "generate_username",
+        "start": 1478,
+        "end": 1480,
+        "free_names": [
+          "length",
+          "range",
+          "secrets",
+          "string"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "pick_domain",
+        "start": 1483,
+        "end": 1494,
+        "free_names": [
+          "Exception",
+          "api_key",
+          "get_domains"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_email_provider",
+        "start": 1497,
+        "end": 1498,
+        "free_names": [
+          "config"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_email_and_token",
+        "start": 1501,
+        "end": 1544,
+        "free_names": [
+          "Exception",
+          "api_key",
+          "cloudflare_create_account",
+          "cloudflare_create_temp_address",
+          "cloudflare_get_domains",
+          "cloudflare_get_token",
+          "cloudmail_get_email_and_token",
+          "create_account",
+          "generate_username",
+          "get_cloudflare_api_base",
+          "get_cloudflare_api_key",
+          "get_duckmail_api_key",
+          "get_email_provider",
+          "get_token",
+          "get_yyds_jwt",
+          "pick_domain",
+          "primary_exc",
+          "secrets",
+          "yyds_get_email_and_token"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_oai_code",
+        "start": 1547,
+        "end": 1594,
+        "free_names": [
+          "cancel_callback",
+          "cloudflare_get_oai_code",
+          "cloudmail_get_oai_code",
+          "dev_token",
+          "duckmail_get_oai_code",
+          "email",
+          "get_email_provider",
+          "get_yyds_jwt",
+          "log_callback",
+          "poll_interval",
+          "resend_callback",
+          "timeout",
+          "yyds_get_oai_code"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "extract_verification_code",
+        "start": 1597,
+        "end": 1614,
+        "free_names": [
+          "re",
+          "subject",
+          "text"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudmail_get_oai_code",
+        "start": 1617,
+        "end": 1689,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "cloudmail_get_messages",
+          "dev_token",
+          "email",
+          "exc",
+          "extract_verification_code",
+          "int",
+          "isinstance",
+          "len",
+          "list",
+          "log_callback",
+          "poll_interval",
+          "raise_if_cancelled",
+          "re",
+          "resend_callback",
+          "sleep_with_cancel",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "duckmail_get_oai_code",
+        "start": 1692,
+        "end": 1742,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "dev_token",
+          "email",
+          "exc",
+          "extract_verification_code",
+          "get_message_detail",
+          "get_messages",
+          "log_callback",
+          "poll_interval",
+          "raise_if_cancelled",
+          "re",
+          "set",
+          "sleep_with_cancel",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cloudflare_get_oai_code",
+        "start": 1745,
+        "end": 1841,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "cloudflare_get_message_detail",
+          "cloudflare_get_messages",
+          "dev_token",
+          "email",
+          "exc",
+          "extract_verification_code",
+          "get_cloudflare_api_base",
+          "int",
+          "isinstance",
+          "len",
+          "log_callback",
+          "poll_interval",
+          "raise_if_cancelled",
+          "re",
+          "resend_callback",
+          "sleep_with_cancel",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "generate_random_birthdate",
+        "start": 1844,
+        "end": 1852,
+        "free_names": [
+          "dt",
+          "random"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "response_preview",
+        "start": 1855,
+        "end": 1861,
+        "free_names": [
+          "Exception",
+          "limit",
+          "re",
+          "res",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "is_cloudflare_block_response",
+        "start": 1864,
+        "end": 1881,
+        "free_names": [
+          "Exception",
+          "dict",
+          "res",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "set_birth_date",
+        "start": 1884,
+        "end": 1910,
+        "free_names": [
+          "Exception",
+          "e",
+          "generate_random_birthdate",
+          "is_cloudflare_block_response",
+          "log_callback",
+          "response_preview",
+          "session"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "set_tos_accepted",
+        "start": 1913,
+        "end": 1940,
+        "free_names": [
+          "Exception",
+          "e",
+          "is_cloudflare_block_response",
+          "len",
+          "log_callback",
+          "response_preview",
+          "session",
+          "struct"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "encode_grpc_nsfw_settings",
+        "start": 1943,
+        "end": 1950,
+        "free_names": [
+          "bytes",
+          "len",
+          "struct"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "update_nsfw_settings",
+        "start": 1953,
+        "end": 1980,
+        "free_names": [
+          "Exception",
+          "e",
+          "encode_grpc_nsfw_settings",
+          "is_cloudflare_block_response",
+          "log_callback",
+          "response_preview",
+          "session"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "enable_nsfw_for_token",
+        "start": 1983,
+        "end": 2008,
+        "free_names": [
+          "Exception",
+          "cf_clearance",
+          "e",
+          "get_proxies",
+          "get_user_agent",
+          "log_callback",
+          "requests",
+          "set_birth_date",
+          "set_tos_accepted",
+          "str",
+          "token",
+          "update_nsfw_settings"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "setup_light_theme",
+        "start": 2019,
+        "end": 2048,
+        "free_names": [
+          "Exception",
+          "UI_ACTIVE_BG",
+          "UI_BG",
+          "UI_BUTTON_BG",
+          "UI_ENTRY_BG",
+          "UI_FG",
+          "root",
+          "set",
+          "ttk"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "tk_label",
+        "start": 2051,
+        "end": 2052,
+        "free_names": [
+          "UI_BG",
+          "UI_FG",
+          "kwargs",
+          "parent",
+          "text",
+          "tk"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "tk_entry",
+        "start": 2055,
+        "end": 2069,
+        "free_names": [
+          "UI_ENTRY_BG",
+          "UI_FG",
+          "UI_MUTED_FG",
+          "kwargs",
+          "parent",
+          "textvariable",
+          "tk",
+          "width"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "tk_button",
+        "start": 2072,
+        "end": 2087,
+        "free_names": [
+          "UI_ACTIVE_BG",
+          "UI_BUTTON_BG",
+          "UI_FG",
+          "command",
+          "kwargs",
+          "parent",
+          "state",
+          "text",
+          "tk"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "tk_checkbutton",
+        "start": 2090,
+        "end": 2101,
+        "free_names": [
+          "UI_BG",
+          "UI_FG",
+          "kwargs",
+          "parent",
+          "text",
+          "tk",
+          "variable"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "tk_option_menu",
+        "start": 2104,
+        "end": 2117,
+        "free_names": [
+          "UI_ACTIVE_BG",
+          "UI_ENTRY_BG",
+          "UI_FG",
+          "parent",
+          "tk",
+          "values",
+          "variable",
+          "width"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "start_browser",
+        "start": 2120,
+        "end": 2161,
+        "free_names": [
+          "Chromium",
+          "Exception",
+          "bool",
+          "create_browser_options",
+          "exc",
+          "get_configured_proxy",
+          "getattr",
+          "log_callback",
+          "min",
+          "prepare_browser_proxy",
+          "range",
+          "time",
+          "use_proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "stop_browser",
+        "start": 2164,
+        "end": 2174,
+        "free_names": [
+          "Exception",
+          "stop_browser_proxy_bridge"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "restart_browser",
+        "start": 2177,
+        "end": 2179,
+        "free_names": [
+          "log_callback",
+          "start_browser",
+          "stop_browser",
+          "use_proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cleanup_runtime_memory",
+        "start": 2182,
+        "end": 2194,
+        "free_names": [
+          "Exception",
+          "exc",
+          "gc",
+          "log_callback",
+          "reason",
+          "shutdown_mint_browsers",
+          "stop_browser"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "refresh_active_page",
+        "start": 2197,
+        "end": 2209,
+        "free_names": [
+          "Exception",
+          "browser",
+          "restart_browser"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "click_email_signup_button",
+        "start": 2212,
+        "end": 2277,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "isinstance",
+          "log_callback",
+          "page",
+          "raise_if_cancelled",
+          "sleep_with_cancel",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "open_signup_page",
+        "start": 2280,
+        "end": 2321,
+        "free_names": [
+          "Exception",
+          "SIGNUP_URL",
+          "browser",
+          "browser_started_with_proxy",
+          "cancel_callback",
+          "click_email_signup_button",
+          "e",
+          "get_configured_proxy",
+          "log_callback",
+          "page_has_proxy_error",
+          "raise_if_cancelled",
+          "restart_browser",
+          "sleep_with_cancel",
+          "start_browser"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "has_profile_form",
+        "start": 2324,
+        "end": 2338,
+        "free_names": [
+          "Exception",
+          "bool",
+          "page",
+          "refresh_active_page"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "fill_email_and_submit",
+        "start": 2341,
+        "end": 2598,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "dict",
+          "get_email_and_token",
+          "isinstance",
+          "log_callback",
+          "page",
+          "raise_if_cancelled",
+          "sleep_with_cancel",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "fill_code_and_submit",
+        "start": 2601,
+        "end": 2740,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "dev_token",
+          "email",
+          "get_oai_code",
+          "log_callback",
+          "page",
+          "raise_if_cancelled",
+          "sleep_with_cancel",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "getTurnstileToken",
+        "start": 2743,
+        "end": 2820,
+        "free_names": [
+          "Exception",
+          "cancel_callback",
+          "len",
+          "log_callback",
+          "page",
+          "raise_if_cancelled",
+          "range",
+          "sleep_with_cancel",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "build_profile",
+        "start": 2823,
+        "end": 2845,
+        "free_names": [
+          "random",
+          "secrets"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "fill_profile_and_submit",
+        "start": 2848,
+        "end": 3080,
+        "free_names": [
+          "Exception",
+          "build_profile",
+          "cancel_callback",
+          "cf_exc",
+          "getTurnstileToken",
+          "isinstance",
+          "log_callback",
+          "page",
+          "raise_if_cancelled",
+          "random",
+          "sleep_with_cancel",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "wait_for_sso_cookie",
+        "start": 3083,
+        "end": 3232,
+        "free_names": [
+          "AccountRetryNeeded",
+          "Exception",
+          "PageDisconnectedError",
+          "cancel_callback",
+          "cf_exc",
+          "dict",
+          "exc",
+          "getTurnstileToken",
+          "getattr",
+          "isinstance",
+          "log_callback",
+          "page",
+          "raise_if_cancelled",
+          "refresh_active_page",
+          "set",
+          "sleep_with_cancel",
+          "sorted",
+          "str",
+          "time",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "maybe_export_cpa_xai_after_success",
+        "start": 3236,
+        "end": 3269,
+        "free_names": [
+          "Exception",
+          "bool",
+          "cancel_callback",
+          "config",
+          "email",
+          "exc",
+          "export_cpa_xai_for_account",
+          "log_callback",
+          "page",
+          "password",
+          "sso",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_save_mail_credential",
+        "start": 3273,
+        "end": 3279,
+        "free_names": [
+          "Exception",
+          "__file__",
+          "credential",
+          "email",
+          "exc",
+          "log_callback",
+          "log_exception",
+          "os",
+          "save_mail_credential"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_append_account_line",
+        "start": 3282,
+        "end": 3284,
+        "free_names": [
+          "append_account_line",
+          "email",
+          "password",
+          "path",
+          "sso"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_queue_unsaved_account",
+        "start": 3287,
+        "end": 3293,
+        "free_names": [
+          "Exception",
+          "error",
+          "exc",
+          "log_callback",
+          "log_exception",
+          "path",
+          "payload",
+          "queue_unsaved_account"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "retry_pending_file",
+        "start": 3296,
+        "end": 3298,
+        "free_names": [
+          "_retry_pending_file",
+          "log_callback",
+          "output_path",
+          "pending_path"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "run_registration_common",
+        "start": 3301,
+        "end": 3336,
+        "free_names": [
+          "AccountRetryNeeded",
+          "MEMORY_CLEANUP_INTERVAL",
+          "RegistrationCallbacks",
+          "RegistrationCancelled",
+          "RegistrationOperations",
+          "_append_account_line",
+          "_queue_unsaved_account",
+          "_save_mail_credential",
+          "accounts_output_file",
+          "add_token_to_grok2api_pools",
+          "bool",
+          "browser",
+          "cancel_callback",
+          "cleanup_runtime_memory",
+          "config",
+          "count",
+          "email",
+          "enable_nsfw_for_token",
+          "error",
+          "fill_code_and_submit",
+          "fill_email_and_submit",
+          "fill_profile_and_submit",
+          "log_callback",
+          "maybe_export_cpa_xai_after_success",
+          "observer",
+          "open_signup_page",
+          "password",
+          "payload",
+          "reason",
+          "restart_browser",
+          "run_batch",
+          "seconds",
+          "sleep_with_cancel",
+          "sso",
+          "start_browser",
+          "token",
+          "wait_for_sso_cookie"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "GrokRegisterGUI",
+        "start": 3339,
+        "end": 3710,
+        "free_names": [
+          "ConfigError",
+          "Exception",
+          "UI_BG",
+          "UI_BUTTON_BG",
+          "UI_ENTRY_BG",
+          "UI_FG",
+          "UI_MUTED_FG",
+          "UI_PANEL_BG",
+          "ValueError",
+          "__file__",
+          "account",
+          "bool",
+          "column",
+          "columnspan",
+          "config",
+          "datetime",
+          "exc",
+          "int",
+          "len",
+          "load_config",
+          "log_exception",
+          "message",
+          "messagebox",
+          "os",
+          "output",
+          "print",
+          "queue",
+          "root",
+          "row",
+          "run_registration_common",
+          "save_config",
+          "scrolledtext",
+          "self",
+          "sticky",
+          "str",
+          "sys",
+          "text",
+          "threading",
+          "tk",
+          "tk_button",
+          "tk_checkbutton",
+          "tk_entry",
+          "tk_label",
+          "tk_option_menu",
+          "validate_run_requirements",
+          "widget"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "CliStopController",
+        "start": 3715,
+        "end": 3723,
+        "free_names": [
+          "self"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "cli_log",
+        "start": 3726,
+        "end": 3728,
+        "free_names": [
+          "datetime",
+          "message",
+          "print"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "run_registration_cli",
+        "start": 3731,
+        "end": 3764,
+        "free_names": [
+          "CliStopController",
+          "Exception",
+          "KeyboardInterrupt",
+          "__file__",
+          "cli_log",
+          "count",
+          "datetime",
+          "exc",
+          "log_exception",
+          "os",
+          "run_registration_common"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "main_cli",
+        "start": 3767,
+        "end": 3792,
+        "free_names": [
+          "ConfigError",
+          "KeyboardInterrupt",
+          "cli_log",
+          "config",
+          "exc",
+          "input",
+          "int",
+          "load_config",
+          "run_registration_cli",
+          "validate_run_requirements"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "main",
+        "start": 3795,
+        "end": 3831,
+        "free_names": [
+          "ConfigError",
+          "Exception",
+          "GrokRegisterGUI",
+          "TK_AVAILABLE",
+          "TK_IMPORT_ERROR",
+          "cli_log",
+          "exc",
+          "len",
+          "log_exception",
+          "main_cli",
+          "messagebox",
+          "print",
+          "retry_pending_file",
+          "setup_light_theme",
+          "str",
+          "sys",
+          "tk"
+        ]
+      }
+    ]
+  },
+  "registration_flow.py": {
+    "lines": 319,
+    "definitions": [
+      {
+        "kind": "ClassDef",
+        "name": "RegistrationCallbacks",
+        "start": 7,
+        "end": 9,
+        "free_names": [
+          "Callable",
+          "bool",
+          "dataclass",
+          "str"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "RegistrationOperations",
+        "start": 13,
+        "end": 31,
+        "free_names": [
+          "Any",
+          "Callable",
+          "Dict",
+          "Tuple",
+          "bool",
+          "dataclass",
+          "float",
+          "str",
+          "type"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "RegistrationResult",
+        "start": 35,
+        "end": 42,
+        "free_names": [
+          "Any",
+          "Dict",
+          "bool",
+          "dataclass",
+          "dict",
+          "field",
+          "str"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "OutputResult",
+        "start": 46,
+        "end": 52,
+        "free_names": [
+          "Any",
+          "Dict",
+          "bool",
+          "dataclass",
+          "dict",
+          "field",
+          "str"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "RegistrationSettings",
+        "start": 56,
+        "end": 61,
+        "free_names": [
+          "bool",
+          "dataclass",
+          "int"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "BatchResult",
+        "start": 65,
+        "end": 72,
+        "free_names": [
+          "bool",
+          "dataclass",
+          "field",
+          "int",
+          "list"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "register_one_account",
+        "start": 75,
+        "end": 125,
+        "free_names": [
+          "Exception",
+          "RegistrationResult",
+          "RuntimeError",
+          "callbacks",
+          "enable_nsfw",
+          "exc",
+          "max_mail_retry",
+          "ops",
+          "range",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "persist_account_result",
+        "start": 128,
+        "end": 190,
+        "free_names": [
+          "Exception",
+          "OutputResult",
+          "TypeError",
+          "bool",
+          "callbacks",
+          "dict",
+          "exc",
+          "isinstance",
+          "ops",
+          "pending_exc",
+          "result",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_notify_observer",
+        "start": 193,
+        "end": 197,
+        "free_names": [
+          "Exception",
+          "account",
+          "callbacks",
+          "exc",
+          "observer",
+          "output",
+          "result"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_run_cleanup_safely",
+        "start": 200,
+        "end": 206,
+        "free_names": [
+          "Exception",
+          "callbacks",
+          "exc",
+          "ops",
+          "reason"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_prepare_next_account",
+        "start": 209,
+        "end": 225,
+        "free_names": [
+          "callbacks",
+          "ops",
+          "result",
+          "settings"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "run_batch",
+        "start": 228,
+        "end": 318,
+        "free_names": [
+          "BatchResult",
+          "Exception",
+          "RegistrationSettings",
+          "_notify_observer",
+          "_prepare_next_account",
+          "_run_cleanup_safely",
+          "any",
+          "bool",
+          "callbacks",
+          "cleanup_interval",
+          "count",
+          "dict",
+          "enable_nsfw",
+          "exc",
+          "int",
+          "isinstance",
+          "max_mail_retry",
+          "max_slot_retry",
+          "observer",
+          "ops",
+          "persist_account_result",
+          "register_one_account"
+        ]
+      }
+    ]
+  },
+  "cpa_xai/browser_confirm.py": {
+    "lines": 972,
+    "definitions": [
+      {
+        "kind": "FunctionDef",
+        "name": "_noop_log",
+        "start": 23,
+        "end": 24,
+        "free_names": [
+          "str"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "BrowserConfirmError",
+        "start": 27,
+        "end": 28,
+        "free_names": [
+          "RuntimeError"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_sleep",
+        "start": 31,
+        "end": 32,
+        "free_names": [
+          "float",
+          "sec",
+          "time"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_project_root",
+        "start": 35,
+        "end": 36,
+        "free_names": [
+          "Path",
+          "__file__"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_debug_shot_dir",
+        "start": 39,
+        "end": 42,
+        "free_names": [
+          "Path",
+          "_project_root"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_safe_tag",
+        "start": 45,
+        "end": 53,
+        "free_names": [
+          "str",
+          "value"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_save_debug_shot",
+        "start": 56,
+        "end": 98,
+        "free_names": [
+          "Any",
+          "Exception",
+          "LogFn",
+          "Optional",
+          "TypeError",
+          "_debug_shot_dir",
+          "_noop_log",
+          "_norm",
+          "_page_url",
+          "_safe_tag",
+          "_visible_text",
+          "email",
+          "exc",
+          "hasattr",
+          "log",
+          "page",
+          "str",
+          "tag",
+          "time"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_is_turnstile_challenge",
+        "start": 101,
+        "end": 115,
+        "free_names": [
+          "any",
+          "bool",
+          "str",
+          "text"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "create_standalone_page",
+        "start": 118,
+        "end": 219,
+        "free_names": [
+          "BrowserConfirmError",
+          "Chromium",
+          "ChromiumOptions",
+          "Exception",
+          "ImportError",
+          "LogFn",
+          "Optional",
+          "Path",
+          "__file__",
+          "_noop_log",
+          "_register_mint_browser",
+          "bool",
+          "close_standalone",
+          "create_browser_options",
+          "exc",
+          "headless",
+          "log",
+          "os",
+          "prepare_chromium_proxy",
+          "proxy",
+          "proxy_log_label",
+          "resolve_proxy",
+          "setattr",
+          "str",
+          "sys"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "close_standalone",
+        "start": 222,
+        "end": 235,
+        "free_names": [
+          "Any",
+          "Exception",
+          "_unregister_mint_browser",
+          "browser",
+          "getattr"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_register_mint_browser",
+        "start": 243,
+        "end": 247,
+        "free_names": [
+          "Any",
+          "_mint_registry",
+          "_mint_registry_lock",
+          "browser"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_unregister_mint_browser",
+        "start": 250,
+        "end": 254,
+        "free_names": [
+          "Any",
+          "_mint_registry",
+          "_mint_registry_lock",
+          "browser"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_mint_tls_get",
+        "start": 257,
+        "end": 262,
+        "free_names": [
+          "_mint_tls",
+          "getattr"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "clear_page_session",
+        "start": 265,
+        "end": 300,
+        "free_names": [
+          "Any",
+          "Exception",
+          "LogFn",
+          "Optional",
+          "_noop_log",
+          "browser",
+          "exc",
+          "isinstance",
+          "list",
+          "log",
+          "page"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "normalize_cookies",
+        "start": 303,
+        "end": 351,
+        "free_names": [
+          "Any",
+          "dict",
+          "isinstance",
+          "list",
+          "str",
+          "tuple"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "inject_cookies",
+        "start": 354,
+        "end": 413,
+        "free_names": [
+          "Any",
+          "Exception",
+          "LogFn",
+          "Optional",
+          "_noop_log",
+          "_sleep",
+          "bool",
+          "cookies",
+          "exc",
+          "getattr",
+          "int",
+          "len",
+          "log",
+          "normalize_cookies",
+          "page",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "acquire_mint_browser",
+        "start": 416,
+        "end": 444,
+        "free_names": [
+          "Exception",
+          "LogFn",
+          "Optional",
+          "_mint_tls_get",
+          "_noop_log",
+          "bool",
+          "clear_page_session",
+          "close_standalone",
+          "create_standalone_page",
+          "headless",
+          "int",
+          "log",
+          "max",
+          "proxy",
+          "recycle_every",
+          "reuse",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "release_mint_browser",
+        "start": 447,
+        "end": 454,
+        "free_names": [
+          "LogFn",
+          "Optional",
+          "_mint_tls_get",
+          "_noop_log",
+          "bool",
+          "int",
+          "log",
+          "owned",
+          "success"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "shutdown_mint_browsers",
+        "start": 457,
+        "end": 466,
+        "free_names": [
+          "Exception",
+          "_mint_registry",
+          "_mint_registry_lock",
+          "_mint_tls_get",
+          "close_standalone",
+          "list"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_page_url",
+        "start": 469,
+        "end": 473,
+        "free_names": [
+          "Any",
+          "Exception",
+          "getattr",
+          "page",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_visible_text",
+        "start": 476,
+        "end": 480,
+        "free_names": [
+          "Any",
+          "Exception",
+          "page",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_norm",
+        "start": 483,
+        "end": 484,
+        "free_names": [
+          "re",
+          "str",
+          "text"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_find_button_exact",
+        "start": 487,
+        "end": 495,
+        "free_names": [
+          "Any",
+          "Exception",
+          "Optional",
+          "label",
+          "page",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_cookie_banner_visible",
+        "start": 498,
+        "end": 504,
+        "free_names": [
+          "any",
+          "bool",
+          "str",
+          "text"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_dismiss_cookie_banner",
+        "start": 507,
+        "end": 512,
+        "free_names": [
+          "Any",
+          "LogFn",
+          "_click_exact",
+          "bool",
+          "log",
+          "page"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_click_exact",
+        "start": 515,
+        "end": 532,
+        "free_names": [
+          "Any",
+          "Exception",
+          "LogFn",
+          "Optional",
+          "_find_button_exact",
+          "bool",
+          "exc",
+          "labels",
+          "log",
+          "page",
+          "real",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_wait_turnstile",
+        "start": 535,
+        "end": 560,
+        "free_names": [
+          "Any",
+          "BrowserConfirmError",
+          "Exception",
+          "LogFn",
+          "_is_turnstile_challenge",
+          "_save_debug_shot",
+          "_sleep",
+          "_visible_text",
+          "bool",
+          "email",
+          "float",
+          "int",
+          "log",
+          "page",
+          "raise_on_timeout",
+          "str",
+          "time",
+          "timeout_sec"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_fill",
+        "start": 563,
+        "end": 599,
+        "free_names": [
+          "Any",
+          "Exception",
+          "LogFn",
+          "bool",
+          "label",
+          "log",
+          "page",
+          "selector",
+          "str",
+          "value"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_fill_input",
+        "start": 602,
+        "end": 603,
+        "free_names": [
+          "Any",
+          "LogFn",
+          "_fill",
+          "bool",
+          "label",
+          "log",
+          "page",
+          "selector",
+          "str",
+          "value"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_detect_auth_error",
+        "start": 606,
+        "end": 630,
+        "free_names": [
+          "Optional",
+          "str",
+          "text",
+          "url"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "approve_device_code",
+        "start": 633,
+        "end": 832,
+        "free_names": [
+          "Any",
+          "BrowserConfirmError",
+          "Exception",
+          "LogFn",
+          "Optional",
+          "TypeError",
+          "_click_exact",
+          "_cookie_banner_visible",
+          "_detect_auth_error",
+          "_dismiss_cookie_banner",
+          "_fill",
+          "_is_turnstile_challenge",
+          "_noop_log",
+          "_norm",
+          "_page_url",
+          "_save_debug_shot",
+          "_sleep",
+          "_visible_text",
+          "_wait_turnstile",
+          "exc",
+          "float",
+          "log",
+          "page",
+          "range",
+          "stop_event",
+          "str",
+          "threading",
+          "time",
+          "timeout_sec",
+          "verification_uri_complete"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "mint_with_browser",
+        "start": 835,
+        "end": 972,
+        "free_names": [
+          "Any",
+          "BrowserConfirmError",
+          "Callable",
+          "Exception",
+          "LogFn",
+          "OAuthDeviceError",
+          "Optional",
+          "_noop_log",
+          "_norm",
+          "_page_url",
+          "_sleep",
+          "_visible_text",
+          "acquire_mint_browser",
+          "approve_device_code",
+          "bool",
+          "browser_timeout_sec",
+          "cancel",
+          "close_standalone",
+          "cookies",
+          "email",
+          "exc",
+          "float",
+          "force_standalone",
+          "headless",
+          "inject_cookies",
+          "int",
+          "max",
+          "min",
+          "page",
+          "password",
+          "poll_device_token",
+          "poll_log",
+          "poll_timeout_sec",
+          "proxy",
+          "proxy_log_label",
+          "range",
+          "recycle_every",
+          "release_mint_browser",
+          "request_device_code",
+          "request_timeout_sec",
+          "resolve_proxy",
+          "reuse_browser",
+          "set_runtime_proxy",
+          "str",
+          "threading",
+          "time"
+        ]
+      }
+    ]
+  },
+  "cpa_export.py": {
+    "lines": 163,
+    "definitions": [
+      {
+        "kind": "FunctionDef",
+        "name": "_ensure_cpa_xai_on_path",
+        "start": 14,
+        "end": 24,
+        "free_names": [
+          "Path",
+          "_ROOT",
+          "os",
+          "str",
+          "sys",
+          "tools_dir"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "export_cookies_from_page",
+        "start": 27,
+        "end": 53,
+        "free_names": [
+          "Exception",
+          "TypeError",
+          "dict",
+          "getattr",
+          "isinstance",
+          "list",
+          "page"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "export_cpa_xai_for_account",
+        "start": 56,
+        "end": 163,
+        "free_names": [
+          "Exception",
+          "Path",
+          "_DEFAULT_AUTH_DIR",
+          "_ROOT",
+          "_ensure_cpa_xai_on_path",
+          "bool",
+          "cancel_callback",
+          "config",
+          "cookies",
+          "dict",
+          "email",
+          "exc",
+          "export_cookies_from_page",
+          "float",
+          "int",
+          "isinstance",
+          "list",
+          "log_callback",
+          "message",
+          "mint_and_export",
+          "open",
+          "os",
+          "page",
+          "password",
+          "shutil",
+          "sso",
+          "str",
+          "time"
+        ]
+      }
+    ]
+  },
+  "cf_mail_debug.py": {
+    "lines": 240,
+    "definitions": [
+      {
+        "kind": "FunctionDef",
+        "name": "extract_code",
+        "start": 14,
+        "end": 30,
+        "free_names": [
+          "Optional",
+          "re",
+          "str",
+          "subject",
+          "text"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "json_or_text",
+        "start": 33,
+        "end": 38,
+        "free_names": [
+          "Any",
+          "Dict",
+          "Exception",
+          "Optional",
+          "Tuple",
+          "requests",
+          "resp",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "generate_username",
+        "start": 41,
+        "end": 44,
+        "free_names": [
+          "int",
+          "length",
+          "range",
+          "secrets",
+          "str",
+          "string"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "normalize_path",
+        "start": 47,
+        "end": 50,
+        "free_names": [
+          "default_path",
+          "path",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "build_auth_headers",
+        "start": 53,
+        "end": 66,
+        "free_names": [
+          "Dict",
+          "api_key",
+          "auth_mode",
+          "bool",
+          "content_type",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "create_address",
+        "start": 69,
+        "end": 107,
+        "free_names": [
+          "Any",
+          "Dict",
+          "RuntimeError",
+          "Tuple",
+          "api_base",
+          "api_key",
+          "auth_mode",
+          "build_auth_headers",
+          "create_path",
+          "domain",
+          "generate_username",
+          "json_or_text",
+          "name",
+          "normalize_path",
+          "requests",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "fetch_box",
+        "start": 110,
+        "end": 128,
+        "free_names": [
+          "Any",
+          "Dict",
+          "List",
+          "api_base",
+          "dict",
+          "isinstance",
+          "json_or_text",
+          "jwt",
+          "list",
+          "params",
+          "path",
+          "requests",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "probe_all_boxes",
+        "start": 131,
+        "end": 144,
+        "free_names": [
+          "Any",
+          "Dict",
+          "List",
+          "Tuple",
+          "api_base",
+          "fetch_box",
+          "jwt",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_detail",
+        "start": 147,
+        "end": 161,
+        "free_names": [
+          "Any",
+          "Dict",
+          "Exception",
+          "api_base",
+          "dict",
+          "isinstance",
+          "json_or_text",
+          "jwt",
+          "mail_id",
+          "requests",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "flatten_mail_text",
+        "start": 164,
+        "end": 179,
+        "free_names": [
+          "Any",
+          "Dict",
+          "List",
+          "Tuple",
+          "detail",
+          "isinstance",
+          "item",
+          "list",
+          "re",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "main",
+        "start": 182,
+        "end": 236,
+        "free_names": [
+          "argparse",
+          "create_address",
+          "extract_code",
+          "flatten_mail_text",
+          "get_detail",
+          "int",
+          "len",
+          "max",
+          "print",
+          "probe_all_boxes",
+          "set",
+          "time"
+        ]
+      }
+    ]
+  },
+  "cpa_xai/oauth_device.py": {
+    "lines": 328,
+    "definitions": [
+      {
+        "kind": "ClassDef",
+        "name": "OAuthDeviceError",
+        "start": 18,
+        "end": 19,
+        "free_names": [
+          "RuntimeError"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "DeviceCodeSession",
+        "start": 22,
+        "end": 41,
+        "free_names": [
+          "device_code",
+          "expires_in",
+          "int",
+          "interval",
+          "object",
+          "raw",
+          "self",
+          "token_endpoint",
+          "user_code",
+          "verification_uri",
+          "verification_uri_complete"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "TokenResult",
+        "start": 44,
+        "end": 51,
+        "free_names": [
+          "access_token",
+          "expires_in",
+          "id_token",
+          "int",
+          "object",
+          "raw",
+          "refresh_token",
+          "self",
+          "token_type"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_build_opener",
+        "start": 54,
+        "end": 59,
+        "free_names": [
+          "proxy",
+          "resolve_proxy",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_validate_endpoint",
+        "start": 62,
+        "end": 72,
+        "free_names": [
+          "OAuthDeviceError",
+          "field_name",
+          "raw_url",
+          "str",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "discover",
+        "start": 75,
+        "end": 111,
+        "free_names": [
+          "DISCOVERY_URL",
+          "Exception",
+          "OAuthDeviceError",
+          "_build_opener",
+          "_check_cancel",
+          "_is_transient_net_error",
+          "_sleep_with_cancel",
+          "_validate_endpoint",
+          "cancel",
+          "exc",
+          "float",
+          "getattr",
+          "int",
+          "json",
+          "max",
+          "proxy",
+          "range",
+          "retries",
+          "timeout",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_check_cancel",
+        "start": 114,
+        "end": 116,
+        "free_names": [
+          "OAuthDeviceError",
+          "cancel"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_sleep_with_cancel",
+        "start": 119,
+        "end": 124,
+        "free_names": [
+          "_check_cancel",
+          "cancel",
+          "float",
+          "max",
+          "min",
+          "seconds",
+          "time"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_is_transient_net_error",
+        "start": 127,
+        "end": 167,
+        "free_names": [
+          "BaseException",
+          "BrokenPipeError",
+          "ConnectionAbortedError",
+          "ConnectionRefusedError",
+          "ConnectionResetError",
+          "Exception",
+          "OSError",
+          "TimeoutError",
+          "_is_transient_net_error",
+          "_ssl",
+          "any",
+          "exc",
+          "getattr",
+          "isinstance",
+          "str",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_post_form",
+        "start": 170,
+        "end": 206,
+        "free_names": [
+          "Exception",
+          "OAuthDeviceError",
+          "_build_opener",
+          "_check_cancel",
+          "_is_transient_net_error",
+          "_sleep_with_cancel",
+          "cancel",
+          "exc",
+          "float",
+          "form",
+          "getattr",
+          "int",
+          "json",
+          "max",
+          "proxy",
+          "range",
+          "retries",
+          "retry_sleep",
+          "timeout",
+          "url",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "request_device_code",
+        "start": 209,
+        "end": 243,
+        "free_names": [
+          "CLIENT_ID",
+          "DeviceCodeSession",
+          "OAuthDeviceError",
+          "SCOPE",
+          "_check_cancel",
+          "_post_form",
+          "cancel",
+          "client_id",
+          "dict",
+          "discover",
+          "int",
+          "isinstance",
+          "max",
+          "proxy",
+          "retries",
+          "scope",
+          "str",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "poll_device_token",
+        "start": 246,
+        "end": 328,
+        "free_names": [
+          "CLIENT_ID",
+          "Exception",
+          "OAuthDeviceError",
+          "TokenResult",
+          "_is_transient_net_error",
+          "_post_form",
+          "_sleep_with_cancel",
+          "cancel",
+          "client_id",
+          "device_code",
+          "dict",
+          "exc",
+          "expires_in",
+          "float",
+          "int",
+          "interval",
+          "isinstance",
+          "log",
+          "max",
+          "min",
+          "proxy",
+          "str",
+          "time",
+          "timeout",
+          "token_endpoint"
+        ]
+      }
+    ]
+  },
+  "cpa_xai/proxyutil.py": {
+    "lines": 239,
+    "definitions": [
+      {
+        "kind": "FunctionDef",
+        "name": "set_runtime_proxy",
+        "start": 23,
+        "end": 25,
+        "free_names": [
+          "_tls",
+          "proxy",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "get_runtime_proxy",
+        "start": 28,
+        "end": 29,
+        "free_names": [
+          "_tls",
+          "getattr"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "resolve_proxy",
+        "start": 32,
+        "end": 43,
+        "free_names": [
+          "explicit",
+          "get_runtime_proxy",
+          "os",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_parse_proxy",
+        "start": 46,
+        "end": 55,
+        "free_names": [
+          "Exception",
+          "proxy",
+          "str",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_safe_port",
+        "start": 58,
+        "end": 62,
+        "free_names": [
+          "Exception",
+          "parsed"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_has_proxy_auth",
+        "start": 65,
+        "end": 67,
+        "free_names": [
+          "_parse_proxy",
+          "bool",
+          "proxy"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_recv_until_headers",
+        "start": 70,
+        "end": 78,
+        "free_names": [
+          "len",
+          "limit",
+          "sock",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "_relay",
+        "start": 81,
+        "end": 94,
+        "free_names": [
+          "left",
+          "right",
+          "select",
+          "timeout"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "_BridgeServer",
+        "start": 97,
+        "end": 99,
+        "free_names": [
+          "socketserver"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "_BridgeHandler",
+        "start": 102,
+        "end": 136,
+        "free_names": [
+          "Exception",
+          "_recv_until_headers",
+          "_relay",
+          "self",
+          "socketserver"
+        ]
+      },
+      {
+        "kind": "ClassDef",
+        "name": "LocalAuthProxyBridge",
+        "start": 139,
+        "end": 195,
+        "free_names": [
+          "Exception",
+          "ValueError",
+          "_BridgeHandler",
+          "_BridgeServer",
+          "_parse_proxy",
+          "_safe_port",
+          "base64",
+          "data",
+          "object",
+          "proxy_url",
+          "self",
+          "socket",
+          "ssl",
+          "threading",
+          "urllib"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "proxy_for_chromium",
+        "start": 198,
+        "end": 212,
+        "free_names": [
+          "ValueError",
+          "_has_proxy_auth",
+          "_parse_proxy",
+          "_safe_port",
+          "proxy",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "prepare_chromium_proxy",
+        "start": 215,
+        "end": 225,
+        "free_names": [
+          "LocalAuthProxyBridge",
+          "_has_proxy_auth",
+          "log",
+          "proxy",
+          "proxy_for_chromium",
+          "str"
+        ]
+      },
+      {
+        "kind": "FunctionDef",
+        "name": "proxy_log_label",
+        "start": 228,
+        "end": 239,
+        "free_names": [
+          "_parse_proxy",
+          "_safe_port",
+          "proxy",
+          "str"
+        ]
+      }
+    ]
+  }
+}
