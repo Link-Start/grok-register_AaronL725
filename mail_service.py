@@ -27,6 +27,26 @@ def bind_runtime(namespace):
         globals()[name] = value
 
 
+def normalize_mail_body(*sources):
+    """Return normalized text from provider payloads with string/list HTML support."""
+    parts = []
+    for source in sources:
+        if not isinstance(source, dict):
+            continue
+        for key in ("text", "raw", "content", "intro", "body", "snippet"):
+            value = source.get(key)
+            values = value if isinstance(value, (list, tuple)) else [value]
+            for item in values:
+                if isinstance(item, str) and item.strip():
+                    parts.append(item)
+        html_value = source.get("html")
+        html_items = html_value if isinstance(html_value, (list, tuple)) else [html_value]
+        for item in html_items:
+            if isinstance(item, str) and item.strip():
+                parts.append(re.sub(r"<[^>]+>", " ", item))
+    return "\n".join(parts)
+
+
 def _pick_list_payload(data):
     if isinstance(data, list):
         return data
@@ -209,34 +229,19 @@ def cloudflare_get_oai_code(
                 address_matched = email.lower() in recipients
             elif msg_addr:
                 address_matched = msg_addr == email.lower()
-            if not address_matched and log_callback:
-                log_callback(f"[Debug] 跳过疑似非目标邮件 id={msg_id} address={msg_addr} to={recipients}")
+            if not address_matched:
+                if log_callback:
+                    log_callback(f"[Debug] 跳过疑似非目标邮件 id={msg_id} address={msg_addr} to={recipients}")
                 continue
-            parts = []
             # 先直接从列表项取内容，避免 detail 接口差异导致漏码
-            for field in ("text", "raw", "content", "intro", "body", "snippet"):
-                value = msg.get(field)
-                if isinstance(value, str) and value.strip():
-                    parts.append(value)
-            html_list = msg.get("html") or []
-            if isinstance(html_list, str):
-                html_list = [html_list]
-            for h in html_list:
-                parts.append(re.sub(r"<[^>]+>", " ", h))
             subject = str(msg.get("subject", "") or "")
-            combined = "\n".join(parts)
+            combined = normalize_mail_body(msg)
             # 再尝试 detail 接口补全内容
             try:
                 detail = cloudflare_get_message_detail(api_base, dev_token, msg_id)
-                for field in ("text", "raw", "content", "intro", "body", "snippet"):
-                    value = detail.get(field)
-                    if isinstance(value, str) and value.strip():
-                        combined += "\n" + value
-                html_list2 = detail.get("html") or []
-                if isinstance(html_list2, str):
-                    html_list2 = [html_list2]
-                for h in html_list2:
-                    combined += "\n" + re.sub(r"<[^>]+>", " ", h)
+                detail_body = normalize_mail_body(detail)
+                if detail_body:
+                    combined += "\n" + detail_body
                 if not subject:
                     subject = str(detail.get("subject", "") or "")
             except Exception as exc:
@@ -391,18 +396,11 @@ def cloudmail_get_oai_code(
             ).strip().lower()
             if target_address and target_address != email.lower():
                 continue
-            parts = []
             code_value = str(msg.get("code", "") or "").strip()
+            combined = normalize_mail_body(msg)
             if code_value:
-                parts.append(f"verification code: {code_value}")
-            for field in ("text", "content", "html", "body", "snippet"):
-                value = msg.get(field)
-                values = value if isinstance(value, list) else [value]
-                for item in values:
-                    if isinstance(item, str) and item.strip():
-                        parts.append(re.sub(r"<[^>]+>", " ", item))
+                combined = f"verification code: {code_value}\n{combined}"
             subject = str(msg.get("subject", "") or "")
-            combined = "\n".join(parts)
             if log_callback:
                 log_callback(f"[Debug] Cloud Mail 收到邮件: {subject}")
             code = extract_verification_code(combined, subject)
@@ -475,14 +473,7 @@ def duckmail_get_oai_code(
                 if log_callback:
                     log_callback(f"[Debug] 获取邮件详情失败: {exc}")
                 continue
-            parts = []
-            text_body = detail.get("text") or ""
-            if text_body:
-                parts.append(text_body)
-            html_list = detail.get("html") or []
-            for h in html_list:
-                parts.append(re.sub(r"<[^>]+>", " ", h))
-            combined = "\n".join(parts)
+            combined = normalize_mail_body(detail)
             subject = detail.get("subject", "")
             if log_callback:
                 log_callback(f"[Debug] 收到邮件: {subject}")
@@ -823,14 +814,7 @@ def yyds_get_oai_code(
                 if log_callback:
                     log_callback(f"[Debug] YYDS 获取邮件详情失败: {exc}")
                 continue
-            parts = []
-            text_body = detail.get("text") or ""
-            if text_body:
-                parts.append(text_body)
-            html_list = detail.get("html") or []
-            for h in html_list:
-                parts.append(re.sub(r"<[^>]+>", " ", h))
-            combined = "\n".join(parts)
+            combined = normalize_mail_body(detail)
             subject = detail.get("subject", "")
             if log_callback:
                 log_callback(f"[Debug] YYDS 收到邮件: {subject}")

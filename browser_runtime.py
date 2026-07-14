@@ -145,13 +145,14 @@ def apply_browser_proxy_option(options, proxy):
         options.set_argument("--proxy-server", proxy)
 
 
-def create_browser_options(browser_proxy=""):
+def create_browser_options(browser_proxy="", extension_path=None):
     options = ChromiumOptions()
     options.auto_port()
     options.set_timeouts(base=1)
     apply_browser_proxy_option(options, browser_proxy)
-    if _extension_path and os.path.exists(_extension_path):
-        options.add_extension(_extension_path)
+    effective_extension = _extension_path if extension_path is None else str(extension_path or "")
+    if effective_extension and os.path.exists(effective_extension):
+        options.add_extension(effective_extension)
     return options
 
 

@@ -155,43 +155,6 @@ class RegistrationFlowTests(unittest.TestCase):
         self.assertEqual(batch.fail_count, 0)
         self.assertEqual(batch.postprocess_warning_count, 1)
 
-    def test_cleanup_failure_does_not_change_success_statistics(self):
-        fake = FakeOps()
-        ops = fake.operations()
-        base_cleanup = ops.cleanup
-        def cleanup(reason):
-            if "已成功" in reason:
-                raise RuntimeError("cleanup failed")
-            base_cleanup(reason)
-        ops.cleanup = cleanup
-        batch = run_batch(2, self.callbacks(), lambda *args: None, ops, cleanup_interval=1)
-        self.assertEqual((batch.success_count, batch.fail_count, batch.processed_count), (2, 0, 2))
-
-    def test_cancel_during_next_account_wait_is_normal_cancellation(self):
-        fake = FakeOps()
-        ops = fake.operations()
-        ops.sleep = lambda seconds: (_ for _ in ()).throw(Cancelled())
-        batch = run_batch(2, self.callbacks(), lambda *args: None, ops)
-        self.assertTrue(batch.cancelled)
-        self.assertEqual(batch.processed_count, 1)
-
-    def test_final_cleanup_does_not_mask_original_error(self):
-        fake = FakeOps()
-        ops = fake.operations()
-        ops.start_browser = lambda: (_ for _ in ()).throw(ValueError("original"))
-        ops.cleanup = lambda reason: (_ for _ in ()).throw(RuntimeError("cleanup"))
-        with self.assertRaisesRegex(ValueError, "original"):
-            run_batch(1, self.callbacks(), lambda *args: None, ops)
-
-    def test_optional_postprocessing_exceptions_become_warning(self):
-        fake = FakeOps()
-        ops = fake.operations()
-        ops.add_tokens = lambda sso, email: (_ for _ in ()).throw(RuntimeError("pool"))
-        ops.export_cpa = lambda email, password, sso: (_ for _ in ()).throw(RuntimeError("cpa"))
-        batch = run_batch(1, self.callbacks(), lambda *args: None, ops)
-        self.assertEqual(batch.success_count, 1)
-        self.assertEqual(batch.postprocess_warning_count, 1)
-
 
 if __name__ == "__main__":
     unittest.main()

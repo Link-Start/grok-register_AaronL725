@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import os
-import sys
 import threading
 import time
 from pathlib import Path
@@ -32,21 +31,14 @@ def create_standalone_page(proxy: Optional[str] = None, headless: bool = False, 
     options = None
     package_root = Path(__file__).resolve().parents[1]
     try:
-        register_file = package_root / "grok_register_ttk.py"
-        if register_file.is_file():
-            register_dir = str(package_root)
-            if register_dir not in sys.path:
-                sys.path.insert(0, register_dir)
-            try:
-                from grok_register_ttk import create_browser_options  # type: ignore
+        from browser_runtime import create_browser_options
 
-                options = create_browser_options()
-                logger("using register create_browser_options (turnstilePatch)")
-            except Exception as exc:  # noqa: BLE001
-                logger("register browser options unavailable: %s" % exc)
-                options = None
+        options = create_browser_options(
+            extension_path=package_root / "turnstilePatch"
+        )
+        logger("using shared browser_runtime.create_browser_options")
     except Exception as exc:  # noqa: BLE001
-        logger("register options probe failed: %s" % exc)
+        logger("shared browser options unavailable: %s" % exc)
         options = None
 
     if options is None:

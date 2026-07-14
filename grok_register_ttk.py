@@ -111,62 +111,6 @@ def log_exception(context, exc, log_callback=None):
 
 
 
-def load_config():
-    global config
-    if os.path.exists(CONFIG_FILE):
-        try:
-            with open(CONFIG_FILE, "r", encoding="utf-8") as f:
-                loaded = json.load(f)
-            config = validate_config_structure(loaded)
-        except ConfigError:
-            raise
-        except Exception as exc:
-            raise ConfigError(f"配置文件解析失败: {CONFIG_FILE}: {exc}") from exc
-    else:
-        config = validate_config_structure(DEFAULT_CONFIG.copy())
-    return config
-
-
-def save_config():
-    global config
-    config = validate_config_structure(config)
-    config_dir = os.path.dirname(os.path.abspath(CONFIG_FILE))
-    os.makedirs(config_dir, exist_ok=True)
-    fd = None
-    temp_path = None
-    try:
-        fd, temp_path = tempfile.mkstemp(prefix=".config-", suffix=".json.tmp", dir=config_dir)
-        with os.fdopen(fd, "w", encoding="utf-8") as f:
-            fd = None
-            json.dump(config, f, indent=4, ensure_ascii=False)
-            f.write("\n")
-            f.flush()
-            os.fsync(f.fileno())
-        try:
-            os.chmod(temp_path, 0o600)
-        except Exception:
-            pass
-        os.replace(temp_path, CONFIG_FILE)
-        temp_path = None
-        try:
-            os.chmod(CONFIG_FILE, 0o600)
-        except Exception:
-            pass
-    except Exception as exc:
-        raise ConfigError(f"保存配置失败: {exc}") from exc
-    finally:
-        if fd is not None:
-            try:
-                os.close(fd)
-            except Exception:
-                pass
-        if temp_path and os.path.exists(temp_path):
-            try:
-                os.unlink(temp_path)
-            except Exception:
-                pass
-
-
 def ensure_stable_python_runtime():
     if sys.version_info < (3, 14) or os.environ.get("DPE_REEXEC_DONE") == "1":
         return
@@ -373,6 +317,10 @@ class _CompatibilityModule(types.ModuleType):
             value = _app_config.config
         elif name in {"_cf_domain_index", "_cloudmail_domain_index"}:
             setattr(_mail_service, name, int(value))
+            self.__dict__.pop(name, None)
+            return
+        elif name in {"browser", "page", "browser_proxy_bridge", "browser_started_with_proxy", "cf_clearance"}:
+            setattr(_registration_browser, name, value)
             self.__dict__.pop(name, None)
             return
         super().__setattr__(name, value)
@@ -994,6 +942,12 @@ class GrokRegisterGUI:
     def should_stop(self):
         return self.stop_requested or not self.is_running
 
+    def _reset_batch_counters(self):
+        self.success_count = 0
+        self.fail_count = 0
+        self.registered_unsaved_count = 0
+        self.postprocess_warning_count = 0
+
     def start_registration(self):
         if self.is_running:
             self.log("[!] 当前已有任务在运行")
@@ -1034,8 +988,7 @@ class GrokRegisterGUI:
             self.log(f"[!] 配置无效或保存失败: {exc}")
             return
         self.stop_requested = False
-        self.success_count = 0
-        self.fail_count = 0
+        self._reset_batch_counters()
         self.results = []
         now = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         self.accounts_output_file = os.path.join(

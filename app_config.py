@@ -162,7 +162,7 @@ def validate_run_requirements(cfg):
         ]
         if missing:
             raise ConfigError("远端 token 入池缺少必需配置: " + ", ".join(missing))
-    if cfg["cpa_copy_to_hotload"] and not cfg["cpa_hotload_dir"]:
+    if cfg["cpa_export_enabled"] and cfg["cpa_copy_to_hotload"] and not cfg["cpa_hotload_dir"]:
         raise ConfigError("启用 CPA 热加载复制时必须配置 cpa_hotload_dir")
     return cfg
 

@@ -15,7 +15,7 @@ page = None
 browser_proxy_bridge = None
 browser_started_with_proxy = False
 cf_clearance = ""
-SIGNUP_URL = "https://accounts.x.ai/sign-up"
+SIGNUP_URL = "https://accounts.x.ai/sign-up?redirect=grok-com"
 _OWN_NAMES = {'is_cloudflare_block_response', 'response_preview', 'start_browser', 'enable_nsfw_for_token', 'stop_browser_proxy_bridge', 'set_tos_accepted', 'fill_email_and_submit', 'getTurnstileToken', 'set_birth_date', 'generate_random_birthdate', 'fill_profile_and_submit', 'click_email_signup_button', 'wait_for_sso_cookie', 'fill_code_and_submit', 'build_profile', 'cleanup_runtime_memory', 'open_signup_page', 'stop_browser', 'encode_grpc_nsfw_settings', 'restart_browser', 'has_profile_form', 'update_nsfw_settings', 'refresh_active_page'}
 
 

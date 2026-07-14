@@ -6,6 +6,7 @@ import shutil
 import sys
 import time
 from pathlib import Path
+from typing import Optional
 
 _ROOT = Path(__file__).resolve().parent
 _DEFAULT_AUTH_DIR = _ROOT / "cpa_auths"
@@ -15,7 +16,7 @@ _DEFAULT_AUTH_DIR = _ROOT / "cpa_auths"
 class CpaExportSettings:
     enabled: bool
     auth_dir: Path
-    hotload_dir: Path | None
+    hotload_dir: Optional[Path]
     copy_to_hotload: bool
     proxy: str
     headless: bool
