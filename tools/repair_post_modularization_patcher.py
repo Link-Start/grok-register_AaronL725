@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import ast
 from pathlib import Path
 
 path = Path(__file__).resolve().with_name("apply_post_modularization_fixes.py")
@@ -10,7 +11,12 @@ helper_anchor = '''def replace_once(text, old, new, label):
         raise RuntimeError(f"{label}: expected one match, got {count}")
     return text.replace(old, new, 1)
 '''
-helper_replacement = helper_anchor + '''\n\ndef replace_in_function(text, function_name, old, new, label):
+
+# Raw text is intentional: the generated target must contain the two-character
+# escape sequence "\\n" inside its Python string literal, not an actual newline.
+helper_definition = r'''
+
+def replace_in_function(text, function_name, old, new, label):
     marker = f"def {function_name}("
     start = text.find(marker)
     if start < 0:
@@ -25,38 +31,45 @@ helper_replacement = helper_anchor + '''\n\ndef replace_in_function(text, functi
         )
     return text[:start] + function_text.replace(old, new, 1) + text[end:]
 '''
+
 if "def replace_in_function(" not in text:
     if text.count(helper_anchor) != 1:
         raise RuntimeError("replace helper anchor is not unique")
-    text = text.replace(helper_anchor, helper_replacement, 1)
+    text = text.replace(helper_anchor, helper_anchor + helper_definition, 1)
 
-old_duck_call = '''text = replace_once(text, old_duck_body, '            combined = normalize_mail_body(detail)\\n', "DuckMail body normalization")'''
-new_duck_call = '''text = replace_in_function(
+replacements = (
+    (
+        '''text = replace_once(text, old_duck_body, '            combined = normalize_mail_body(detail)\\n', "DuckMail body normalization")''',
+        '''text = replace_in_function(
     text,
     "duckmail_get_oai_code",
     old_duck_body,
     '            combined = normalize_mail_body(detail)\\n',
     "DuckMail body normalization",
-)'''
-if old_duck_call in text:
-    text = text.replace(old_duck_call, new_duck_call, 1)
-elif new_duck_call not in text:
-    raise RuntimeError("DuckMail replacement call anchor not found")
-
-old_yyds_call = '''text = replace_once(text, old_yyds_body, '            combined = normalize_mail_body(detail)\\n', "YYDS body normalization")'''
-new_yyds_call = '''text = replace_in_function(
+)''',
+        "DuckMail",
+    ),
+    (
+        '''text = replace_once(text, old_yyds_body, '            combined = normalize_mail_body(detail)\\n', "YYDS body normalization")''',
+        '''text = replace_in_function(
     text,
     "yyds_get_oai_code",
     old_yyds_body,
     '            combined = normalize_mail_body(detail)\\n',
     "YYDS body normalization",
-)'''
-if old_yyds_call in text:
-    text = text.replace(old_yyds_call, new_yyds_call, 1)
-elif new_yyds_call not in text:
-    raise RuntimeError("YYDS replacement call anchor not found")
+)''',
+        "YYDS",
+    ),
+)
 
-# Guard against reintroducing ambiguous full-file replacements for provider bodies.
+for old, new, label in replacements:
+    if old in text:
+        if text.count(old) != 1:
+            raise RuntimeError(f"{label} replacement call is not unique")
+        text = text.replace(old, new, 1)
+    elif new not in text:
+        raise RuntimeError(f"{label} replacement call anchor not found")
+
 for forbidden in (
     "replace_once(text, old_duck_body",
     "replace_once(text, old_yyds_body",
@@ -64,5 +77,7 @@ for forbidden in (
     if forbidden in text:
         raise RuntimeError(f"ambiguous provider replacement remains: {forbidden}")
 
+# Catch all quoting, escaping, and generated-source syntax errors before writing.
+ast.parse(text, filename=str(path))
 path.write_text(text, encoding="utf-8")
-print("post-modularization patcher repaired with function-scoped anchors")
+print("post-modularization patcher repaired and syntax-validated")
