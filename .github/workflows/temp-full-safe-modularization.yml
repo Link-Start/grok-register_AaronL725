@@ -6,6 +6,7 @@ on:
       - tools/apply_full_safe_modularization.py
       - tools/fix_modularization_ast_spans.py
       - tools/fix_modularization_shared_state.py
+      - tools/fix_modularization_public_compat.py
       - .github/workflows/temp-full-safe-modularization.yml
   workflow_dispatch:
 
@@ -25,10 +26,21 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then python -m pip install -r requirements.txt; fi
           python -m pip install filelock
+      - name: Preflight migration scripts
+        run: |
+          python -m py_compile \
+            tools/apply_full_safe_modularization.py \
+            tools/fix_modularization_ast_spans.py \
+            tools/fix_modularization_shared_state.py \
+            tools/fix_modularization_public_compat.py
       - name: Repair AST source spans
         run: python tools/fix_modularization_ast_spans.py
       - name: Repair shared state compatibility
         run: python tools/fix_modularization_shared_state.py
+      - name: Repair public compatibility
+        run: python tools/fix_modularization_public_compat.py
+      - name: Validate patched migration script
+        run: python -m py_compile tools/apply_full_safe_modularization.py
       - name: Apply safe modularization
         run: python tools/apply_full_safe_modularization.py
       - name: Verify Python syntax
@@ -43,6 +55,7 @@ jobs:
             tools/apply_full_safe_modularization.py \
             tools/fix_modularization_ast_spans.py \
             tools/fix_modularization_shared_state.py \
+            tools/fix_modularization_public_compat.py \
             tools/build_refactor_inventory.py \
             refactor_inventory.json \
             .github/workflows/temp-refactor-inventory.yml \
